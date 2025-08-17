@@ -74,22 +74,9 @@ class FeatureSeeder extends Seeder
         $helpSupport = Feature::where('slug', 'help_support')->first();
         $emailSupport = Feature::where('slug', 'email_support')->first();
 
-        $freePlan = PricingPlan::where('slug', 'free')->first();
         $basicPlan = PricingPlan::where('slug', 'basic')->first();
         $proPlan = PricingPlan::where('slug', 'pro')->first();
         $enterprisePlan = PricingPlan::where('slug', 'enterprise')->first();
-
-        // Attach features to Free Plan
-        if ($freePlan) {
-            $freePlan->features()->attach([
-                $userCount->id => ['value' => '2', 'display_value' => 'Up to 2 users', 'sort_order' => 1, 'is_highlighted' => false],
-                $databaseBackup->id => ['value' => 'false', 'display_value' => '✗', 'sort_order' => 2, 'is_highlighted' => false],
-                $analytics->id => ['value' => 'None', 'display_value' => 'None', 'sort_order' => 3, 'is_highlighted' => false],
-                $customDomain->id => ['value' => 'false', 'display_value' => '✗', 'sort_order' => 4, 'is_highlighted' => false],
-                $helpSupport->id => ['value' => 'true', 'display_value' => '✓', 'sort_order' => 5, 'is_highlighted' => false],
-                $emailSupport->id => ['value' => 'false', 'display_value' => '✗', 'sort_order' => 6, 'is_highlighted' => false],
-            ]);
-        }
 
         // Attach features to Basic Plan
         if ($basicPlan) {
@@ -109,8 +96,8 @@ class FeatureSeeder extends Seeder
                 $userCount->id => ['value' => '25', 'display_value' => 'Up to 25 users', 'sort_order' => 1, 'is_highlighted' => false],
                 $databaseBackup->id => ['value' => 'true', 'display_value' => '✓', 'sort_order' => 2, 'is_highlighted' => false],
                 $analytics->id => ['value' => 'Advanced', 'display_value' => 'Advanced Analytics', 'sort_order' => 3, 'is_highlighted' => true],
-                $customDomain->id => ['value' => 'true', 'display_value' => '✓', 'sort_order' => 4, 'is_highlighted' => true],
-                $helpSupport->id => ['value' => 'true', 'display_value' => '✓ Priority', 'sort_order' => 5, 'is_highlighted' => false],
+                $customDomain->id => ['value' => 'true', 'display_value' => '✗', 'sort_order' => 4, 'is_highlighted' => true],
+                $helpSupport->id => ['value' => 'true', 'display_value' => '✓', 'sort_order' => 5, 'is_highlighted' => false],
                 $emailSupport->id => ['value' => 'true', 'display_value' => '✓', 'sort_order' => 6, 'is_highlighted' => false],
             ]);
         }
@@ -119,11 +106,11 @@ class FeatureSeeder extends Seeder
         if ($enterprisePlan) {
             $enterprisePlan->features()->attach([
                 $userCount->id => ['value' => '-1', 'display_value' => 'Unlimited users', 'sort_order' => 1, 'is_highlighted' => true],
-                $databaseBackup->id => ['value' => 'true', 'display_value' => '✓ Daily', 'sort_order' => 2, 'is_highlighted' => false],
+                $databaseBackup->id => ['value' => 'true', 'display_value' => '✓', 'sort_order' => 2, 'is_highlighted' => false],
                 $analytics->id => ['value' => 'Advanced', 'display_value' => 'Advanced Analytics', 'sort_order' => 3, 'is_highlighted' => false],
                 $customDomain->id => ['value' => 'true', 'display_value' => '✓', 'sort_order' => 4, 'is_highlighted' => false],
-                $helpSupport->id => ['value' => 'true', 'display_value' => '✓ 24/7', 'sort_order' => 5, 'is_highlighted' => true],
-                $emailSupport->id => ['value' => 'true', 'display_value' => '✓ Priority', 'sort_order' => 6, 'is_highlighted' => false],
+                $helpSupport->id => ['value' => 'true', 'display_value' => '✓', 'sort_order' => 5, 'is_highlighted' => true],
+                $emailSupport->id => ['value' => 'true', 'display_value' => '✓', 'sort_order' => 6, 'is_highlighted' => false],
             ]);
         }
     }
