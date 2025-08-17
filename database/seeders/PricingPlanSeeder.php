@@ -13,18 +13,6 @@ class PricingPlanSeeder extends Seeder
      */
     public function run(): void
     {
-        // Create Free Plan
-        PricingPlan::create([
-            'name' => 'Free',
-            'slug' => 'free',
-            'description' => 'Get started with our basic features',
-            'price' => 0.00,
-            'billing_period' => 'monthly',
-            'sort_order' => 0,
-            'is_active' => true,
-            'is_featured' => false,
-        ]);
-
         // Create Basic Plan
         PricingPlan::create([
             'name' => 'Basic',

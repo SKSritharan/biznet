@@ -97,14 +97,14 @@ class FeatureResource extends Resource
                     ->searchable()
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('type')
-                    ->badge()
-                    ->color(fn(string $state): string => match ($state) {
-                        'boolean' => 'success',
-                        'numeric' => 'warning',
-                        'select' => 'info',
-                        default => 'gray',
-                    }),
+//                Tables\Columns\TextColumn::make('type')
+//                    ->badge()
+//                    ->color(fn(string $state): string => match ($state) {
+//                        'boolean' => 'success',
+//                        'numeric' => 'warning',
+//                        'select' => 'info',
+//                        default => 'gray',
+//                    }),
 
                 Tables\Columns\TextColumn::make('unit')
                     ->label('Unit')

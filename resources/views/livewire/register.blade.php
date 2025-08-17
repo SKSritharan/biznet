@@ -18,42 +18,6 @@ new class extends Component {
     public string $selected_plan = 'starter';
     public bool $terms_accepted = false;
 
-    public array $plans = [
-        'starter' => [
-            'name' => 'Starter',
-            'price' => 29,
-            'features' => [
-                'Up to 5 users',
-                'Basic analytics',
-                '5 integrations',
-                'Email support'
-            ]
-        ],
-        'professional' => [
-            'name' => 'Professional',
-            'price' => 99,
-            'features' => [
-                'Up to 25 users',
-                'Advanced analytics',
-                'Unlimited integrations',
-                'Priority support',
-                'Advanced automation'
-            ],
-            'popular' => true
-        ],
-        'enterprise' => [
-            'name' => 'Enterprise',
-            'price' => 299,
-            'features' => [
-                'Unlimited users',
-                'Custom analytics',
-                'Custom integrations',
-                '24/7 dedicated support',
-                'On-premise deployment'
-            ]
-        ]
-    ];
-
     public function rules(): array
     {
         return [
@@ -79,9 +43,9 @@ new class extends Component {
         }
     }
 
-    public function selectPlan($plan)
+    public function selectPlan($planSlug)
     {
-        $this->selected_plan = $plan;
+        $this->selected_plan = \App\Models\PricingPlan::where('slug', $planSlug)->first()->slug ?? 'starter';
     }
 };
 ?>
@@ -109,56 +73,14 @@ new class extends Component {
                         <h2 class="text-2xl font-bold mb-6 text-base-content">Choose Your Plan</h2>
 
                         <div class="space-y-4">
-                            @foreach($plans as $planKey => $plan)
-                                <div wire:click="selectPlan('{{ $planKey }}')"
-                                     class="card cursor-pointer transition-all duration-300 {{ $selected_plan === $planKey ? 'border-2 border-primary bg-primary/5' : 'border border-base-300 hover:border-primary/50' }}">
-                                    <div class="card-body p-6">
-                                        <div class="flex items-center justify-between">
-                                            <div class="flex items-center space-x-4">
-                                                <div class="radio">
-                                                    <input type="radio"
-                                                           name="plan"
-                                                           value="{{ $planKey }}"
-                                                           wire:model="selected_plan"
-                                                           class="radio radio-primary">
-                                                </div>
-                                                <div>
-                                                    <div class="flex items-center space-x-2">
-                                                        <h3 class="text-xl font-semibold text-base-content">{{ $plan['name'] }}</h3>
-                                                        @if(isset($plan['popular']))
-                                                            <span class="badge badge-primary text-white">Most Popular</span>
-                                                        @endif
-                                                    </div>
-                                                    <div class="text-2xl font-bold text-primary mt-1">
-                                                        ${{ $plan['price'] }}<span class="text-sm text-base-content/70">/month</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
 
-                                        <div class="mt-4">
-                                            <ul class="space-y-2">
-                                                @foreach($plan['features'] as $feature)
-                                                    <li class="flex items-center text-sm text-base-content/80">
-                                                        <svg class="w-4 h-4 text-success mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                                                        </svg>
-                                                        {{ $feature }}
-                                                    </li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
                         </div>
 
                         <!-- Plan Summary -->
                         <div class="mt-6 p-4 bg-base-200 rounded-lg">
-                            <h4 class="font-semibold text-base-content mb-2">Selected Plan Summary</h4>
                             <div class="flex justify-between items-center">
-                                <span class="text-base-content/80">{{ $plans[$selected_plan]['name'] }} Plan</span>
-                                <span class="text-lg font-bold text-primary">${{ $plans[$selected_plan]['price'] }}/month</span>
+                                <span class="text-base-content/80">New Plan</span>
+                                <span class="text-lg font-bold text-primary">$12.99/month</span>
                             </div>
                             <p class="text-sm text-base-content/70 mt-2">You can change or cancel your plan anytime</p>
                         </div>
@@ -279,7 +201,7 @@ new class extends Component {
                                         <button type="submit"
                                                 class="btn btn-primary btn-lg w-full text-white"
                                                 wire:loading.attr="disabled">
-                                            <span wire:loading.remove>Create Account & Start {{ $plans[$selected_plan]['name'] }} Plan</span>
+                                            <span wire:loading.remove>Create Account & Start Basic Plan</span>
                                             <span wire:loading class="loading loading-spinner loading-sm"></span>
                                             <span wire:loading>Creating Account...</span>
                                         </button>
